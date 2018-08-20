@@ -1,0 +1,67 @@
+{include file="public/header"}
+
+<style>
+	*{
+		margin:0px;
+		padding:0px;
+	}
+	img{
+		width: 200px;
+		height: 200px;
+	}
+	.add,.category{
+		font-size: 30px;
+		padding:10px 20px;
+		background: orange;
+		text-decoration: none;
+		color: white;
+		outline: none; 
+	}
+	.table{
+		margin-top: 40px;
+	}
+	.edit,.delete{
+		font-size: 20px;
+		padding:10px 10px;
+		background: blue;
+		color: white;
+		text-decoration: none;
+	}
+	.delete{
+		background: red;
+	}
+	.category{
+		background: gray;
+	}
+
+</style>
+	<h1>商品一览表</h1><a href="add" class="add">添加商品</a>
+	<table class="table">
+		<tr>
+			<th>ID</th>
+			<th>商品名称</th>
+			
+			<th>商品描述</th>
+			<th>商品预览</th>
+			<th>商品分类</th>
+			<th>操作</th>
+		</tr>
+		{foreach $goods_list as $good}
+		<tr>
+			<td>{$good['id']}</td>
+			<td>{$good['g_name']}</td>
+			
+			<td>{$good['g_desc']}</td>
+			<td><a href="{:url('good_spec',['id'=>$good['id']])}"><img src="__PUBLIC__/uploads/{$good['g_picurl']}" alt=""></a></td>
+			<td>{$good['c_name']}</td>
+			<td>
+				<a href="edit_good?id={$good['id']}" class="edit">编辑</a>
+				<a href="do_delete?id={$good['id']}" class="delete">删除</a>
+			</td>
+		</tr>
+		{/foreach}
+	</table>
+    <div>
+		{$goods_list->render()}
+	</div>
+{include file="public/footer"}

@@ -1,0 +1,43 @@
+{include file="public/header"}
+
+	<style type="text/css">
+		*{
+			margin: 0px;
+			padding:0px;
+		}
+		#iii{
+			width: 300px;
+			height: 200px;
+		}
+		.form-control-g{
+			vertical-align: top;
+		}
+		.form-control{
+			margin-bottom:50px;
+		}
+		img{
+			width: 300px;
+			height: 200px;
+
+		}
+	</style>
+<body>
+<div class="view">
+	<form action="{:url('Category/do_edit')}"  enctype="multipart/form-data" method="post">
+		
+		<div class="form-control">
+			<label>分类id：{$cate['id']}</label>
+		</div>
+		
+		<div class="form-control-g">
+			<label>分类名称：</label>
+			<input type="text" name="c_name" value="{$cate['c_name']}">
+		</div>
+		<div  class="form-control">
+			<input type="hidden" name="id" value="{$cate['id']}">
+			<input type="submit" value="更新">
+		</div>
+	</form>
+</div>
+</body>
+</html>

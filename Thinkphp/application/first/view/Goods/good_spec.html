@@ -1,0 +1,73 @@
+{include file="public/header"}
+<script type="text/javascript" src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.js"></script>
+	<style type="text/css">
+		a{
+			text-decoration: none;
+			list-style:none;
+			
+		}
+		.show{
+			width:300px;
+			height: 40px;
+			line-height: 40px;
+			font-size: 25px;
+			border:1px solid orange;
+			margin:50px auto;
+			color: gray;
+			text-align: center;
+		}
+		.im img{
+			width: 400px;
+			
+		}
+		.ali{
+			width: 600px;
+			height: 50px;
+			line-height: 50px;
+			font-size: 28px;
+			text-align: center;
+			border:1px solid orange;
+			list-style: none;
+		}
+		.ali strong{
+			padding-left: 100px;
+		}
+	</style>
+	<h1>商品详情页</h1>
+	
+	<div class="view">
+		<div class="im"><img :src="'__PUBLIC__/uploads/'+good.g_picurl"></div>
+		<h2>商品名称：{{good.g_name}}</h2>
+		<h3>商品描述：{{good.g_desc}}</h3>	
+		<div v-for="(attr,index) in attr_data">
+		
+			<ul>
+				<li class="ali">
+					<sapn>规格：</sapn>
+					 {{attr.type}}/{{attr.color}} 
+					 <strong>价格：{{attr.price}}</strong>
+				</li>
+			</ul>
+		</div>
+
+
+	</div>
+<script type="text/javascript">
+	
+	new Vue({
+		el:'.view',
+		data:{
+			good:JSON.parse('{$good}'),
+			attr_data:JSON.parse('{$attr_data}')
+			
+		},
+		created:{
+			// console.log(this.attr_data);
+		}
+	})
+</script>
+
+
+
+
+{include file="public/footer"}

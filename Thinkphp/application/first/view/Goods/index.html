@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="index.css">
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<title>米袖商城</title>
+
+</head>
+<body>
+	
+	<div class="wrap">
+		
+		<div class="head">
+			<div class="head-right">
+				<div class="right-nav">
+					<ul>
+						<li>登录&nbsp|</li>
+						<li>MIUI官网</li>
+						<li class="scale"></li>
+					</ul>
+				</div>
+				<div class="search">
+					<div class="fdj"><img src="images/22.png"></div>
+					<input type="text" class="shuru" placeholder="搜索">
+
+				</div>
+			</div>
+			<div class="head-left">
+				<img src="https://attach.bbs.miui.com/album/201802/22/150231zpandhsdt00janpf.png">
+				<div class="left-qr" onmouseover="show_qr()" onmouseout="hide_qr()"><span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp下载app</span></div>
+
+				<div class="qrt" id="qr"><img src="images/11.jpg" alt=""></div>
+			</div>
+		</div>
+
+		<div class="nav-bar" id="nav">
+			<ul class="nav-li">
+				<li>首页</li>
+				<li>新帖</li>
+				<li>版块</li>
+				<li>MIUI专区</li>
+				<li>资源分享</li>
+				<li>谈天说地</li>
+				<li>俱乐部</li>
+				<li>极客秀</li>
+				<li>MIUI下载</li>
+				<li>橙色星期五</li>
+				<li class="right">论坛APP</li>
+				<li></li>
+			</ul>
+		</div>
+
+
+		<div class="move-top" id="but_top" 
+		onclick="move_top()"></div>
+		<div class="content">
+			
+			<div class="slide-bar">
+				<ul id="slide">
+					<li><img src="https://attach.bbs.miui.com/album/201808/16/174723yq80zgl6lw06fmf8.jpg"></li>
+					<li><img src="https://attach.bbs.miui.com/album/201808/16/094939rborbpb9vfdj6mw0.jpg"></li>
+					<li><img src="https://attach.bbs.miui.com/album/201808/16/172213fklyu48p4n8p2pbf.jpg"></li>
+					<li><img src="https://attach.bbs.miui.com/album/201808/15/101044selttwmewh8wl46o.png"></li>
+				</ul>
+				<button class="left" onclick="left()"><</button>
+				<button class="right" onclick="right()">></button>
+				<ol>
+					<li class="cur"></li>
+					<li></li>
+					<li></li>
+					<li></li>
+				</ol>
+			</div>
+
+
+			<div>
+				<div class="content-right" id="right_fixed">
+					
+					<div class="comment"></div>
+					<div class="daka">
+						<div class="daka-left">
+							<p class="daka-top">7632724</p>
+							<p class="daka-bottom">打卡领奖</p>
+						</div>
+						
+					</div>
+					<div class="update">
+						<h2>MIUI已持续更新384周</h2>
+						<h3>最新版：8.8.16</h3>
+						<div class="load">
+							<div class="load-left">
+								ROM下载
+							</div>
+							<div class="load-right">刷机教程</div>
+						</div>
+					</div>
+
+
+					<div class="tuijian">
+						<div class="tui-top">推荐版块</div>
+						<div class="tui-content">
+							<div class="t-content" v-for=" i in tui_data">{{i}}</div>
+						</div>
+						<div class="tui-bottom">所有版块&nbsp></div>
+					</div>
+
+					<div class="hot">
+						<h2>热门活动</h2>
+						<div><img src="https://attach.bbs.miui.com/album/201807/13/185736k0lb8bq8txxb4yxx.jpg"></div>
+						<div class="hot-bottom"><p>【0元试用】极蜂天文望远镜</p></div>
+					</div>
+
+					<div class="rank">
+						<h2>热帖排行</h2>
+						<ul>
+							<li v-for=" item in rank_data">{{item}}</li>
+						</ul>
+					</div>
+
+					<div class="focus">
+						<h2>关于我们</h2>
+						<ul>
+							<li v-for="a in ali">{{a}}</li>
+						</ul>
+					</div>
+
+
+				</div>
+				<div class="content-left">
+					<div class="list" v-for="good in good_list">
+						
+						<div class="title"><h3>{{good.title}}</h3></div>
+						<div class="good-img"><img :src="good.picurl" alt=""></div>
+						<div class="desc">{{good.desc}}</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript">
+	
+	new Vue({
+		el:'.wrap',
+
+		data:{
+			ali:['新浪微博 |','社区微博 |','百度贴吧','QQ空间 |','百度搜索 |','微信','Facebook|','twitter |','Google+']
+			,
+			rank_data:[
+				'严禁无关话题灌水及相应处罚规定','小米Max 3引入防回刷机制的重要说明','MIUI 第384周发布公告及更新日志','怎么升级MIUI10?小爱你知道的太多了','这几个小细节，或许对你玩机很重要','红米6Pro引入防回刷机制的重要说明','MIUI内测粉丝组面向全机型招募','你认为什么样的电脑才能改变世界？','传送门2.0深度解析，不只是快','小米6X引入防回刷机制的重要说明'
+			]
+			,
+			tui_data:['MIUI 10','小米手机8/探索版','小米手机6','小米手机8SE','小米MIX 2S','红米Note 5','小米平板4','新功能讨论','特殊组申请','小米Max 3'
+			],
+			good_list:[
+
+			{
+				'title':'秒开小米有品快应用，领81.6神券！跟帖赢无线鼠标',
+				'desc':'在这个即将到来的秋天，快应用抓住夏日的尾巴，赶在8月热购狂欢节，为大家送上超值福利！',
+				'picurl':'https://attach.bbs.miui.com/album/201808/14/185117od0f76txtbsmrm8b.jpg'
+			},
+			{
+				'title':'【抢楼活动&有奖问卷】你曾独自旅行吗？',
+				'desc':'参与方式一：5台相机赠与抢楼的用户，可不用填写问卷直接抢楼。参与方式二：不限台数，认真填写完问卷的用户将有机会被我们筛选成为体验官，并赠与小默相机及相关产品',
+				'picurl':'https://attach.bbs.miui.com/album/201808/07/140246m264ff1mi64gimll.png'
+			},
+			{
+				'title':'【招募】快来体验小丹机器人，还有精美福利',
+				'desc':'第四届“世界机器人大会”将在8月15日北京隆重举行。届时，小米生态链公司钕娲创造将展示自己研发的首款智能教育陪伴机器人——小丹，欢迎各位米粉前来体验～',
+				'picurl':'https://attach.bbs.miui.com/album/201807/31/160053xyofpivotitpylb3.jpg'
+			},
+			{
+				'title':'小米电视邀你来看《邪不压正》',
+				'desc':'该片改编自张北海的武侠小说《侠隐》，是由姜文编剧并执导，姜文、彭于晏、廖凡等主演的动作喜剧电影。',
+				'picurl':'https://attach.bbs.miui.com/album/201807/13/120522q20iqawbq0p7zqqf.jpg'
+			},
+			{
+				'title':'小米天猫超品日，小米8放量购！',
+				'desc':' 作为小米品牌在天猫一年仅一次的狂欢，7月10日0点，小米8首次放量抢购。同时还将有更多优惠回馈给亲爱的米粉们，全场最高可省1500元。',
+				'picurl':'https://attach.bbs.miui.com/album/201807/09/152808pqyppdyyddj68sj3.jpg'
+			},
+			{
+				'title':'【米酷实验室】智能拦截，还手机一片清静',
+				'desc':'随着信息化时代的到来，我们貌似每天都会收到各种各样的骚扰或者诈骗的短信和电话，非常烦扰。',
+				'picurl':'https://attach.bbs.miui.com/album/201807/04/160640wgfe4v25414z8ezg.png'
+			},
+			{
+				'title':'《小米枪战》全新“战场模式”，集勋章送小米8！',
+				'desc':'登录微信，扫描二维码，集齐4枚徽章，即可参与抽奖，中奖率100% 哦！',
+				'picurl':'https://attach.bbs.miui.com/album/201807/03/102642c6cn559tt5ej6jaj.jpg'
+			},
+			{
+				'title':'上新抢楼！TS儿童太阳镜上线小米有品',
+				'desc':' 时尚的儿童太阳镜可以说是孩子防晒的必备用品之一，除了扮靓耍帅以外，还能保护孩子的眼睛免受紫外线和眩光的伤害。',
+				'picurl':'https://attach.bbs.miui.com/album/201807/02/140750bcgzdcxdcqghwwso.jpg'
+			},
+			{
+				'title':'【报名】生为竞技·黑鲨游戏手机粉丝品鉴会-厦门/龙岩站',
+				'desc':'MIUI发烧友俱乐部联合黑鲨正式开启第二轮品鉴会，本次活动为第二轮收官战！',
+				'picurl':'https://attach.bbs.miui.com/album/201806/25/143516z7wnwemn81cebiyi.png'
+			},
+			{
+				'title':'【米粉大轰趴】为更好用的MIUI 而奋斗，你们都值得被赞赏',
+				'desc':'我们想搭建起用户、产品和工程师之间的桥梁，让每一个关心MIUI 品质的米粉发声，让MIUI 更好用。',
+				'picurl':'https://attach.bbs.miui.com/album/201806/22/210937ycde0njh57aav02q.jpg'
+			}
+
+
+			]
+		}
+	})
+</script>
+
+
+
+</body>
+</html>
+<script type="text/javascript">
+	var index = 0;
+	var oli = document.querySelectorAll('ol li');
+	var butt = document.getElementById('but_top');
+	var uul = document.getElementById('slide');
+	var qr =document.getElementById('qr');
+	var r_fixed = document.getElementById('right_fixed');
+	function auto(){
+		index++;
+		if(index<0){
+			index = 3;
+		}else if(index >3){
+			index = 0;
+		}
+		uul.style.marginLeft = (-index*960)+'px';
+		for(var i = 0;i<oli.length;i++){
+			oli[i].className = '';
+		}
+		oli[index].className = 'cur';
+	}
+	var timer = setInterval(auto,2000);
+	function left(){
+
+		index--;
+		if(index<0){
+			index = 3;
+		}else if(index >3){
+			index = 0;
+		}
+		uul.style.marginLeft = (-index*960)+'px';
+		for(var i = 0;i<oli.length;i++){
+			oli[i].className = '';
+		}
+		oli[index].className = 'cur';
+	}
+	function right(){
+		auto();
+	}
+	function move_top(){
+		
+		document.body.scrollTop = 0;
+		document.documentElement.scrollTop = 0;
+	}
+	function show_qr(){
+		qr.style.display='block';
+	}
+	function hide_qr(){
+		qr.style.display='none';
+	}
+
+	window.onscroll = function(){
+	var bar = document.getElementById('nav');
+	var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+	if(scrollTop>0){
+
+		bar.style = "position:fixed;z-index:999;top:0px;opacity:0.8;";
+	}else if(scrollTop==0){
+		bar.style = "position:'';";
+	}
+	if(scrollTop>=200){
+		butt.style.display = 'block';
+	}else{
+		butt.style.display='none';
+	}
+
+	if(scrollTop>2000){
+		r_fixed.style= 'position:fixed;top:70px;right:195px;'
+	}else{
+		r_fixed.style= 'position:"";'
+	}
+} 
+
+</script>

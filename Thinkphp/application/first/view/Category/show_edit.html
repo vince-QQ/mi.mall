@@ -1,0 +1,56 @@
+{include file="public/header"}
+
+	<style type="text/css">
+		*{
+			margin: 0px;
+			padding:0px;
+		}
+		#iii{
+			width: 300px;
+			height: 200px;
+		}
+		.form-control-g{
+			vertical-align: top;
+		}
+		.form-control{
+			margin-bottom:50px;
+		}
+		img{
+			width: 300px;
+			height: 200px;
+
+		}
+	</style>
+<body>
+<div class="view">
+	<form action="{:url('Category/do_edit')}"  enctype="multipart/form-data" method="post">
+		
+		<div class="form-control">
+			<label>分类id：{$cate['id']}</label>
+		</div>
+		
+		<div class="form-control-g">
+			<label>分类名称：</label>
+			<input type="text" value="{$cate['c_name']}">
+		</div>
+		<div class="form-control-g">
+			<label>选择新的分类：</label>
+			<select name="parent_id">
+				
+				{foreach $cate_list as $good}
+					<option {if $cate['parent_id'] == $good['id'] }selected=""{/if} value="{$good['id']}">{$good['c_name']}</option>
+					{foreach $good['child_menu'] as $val}
+						<option disabled="true" value="{$val['id']}">&nbsp;&nbsp;&nbsp;&nbsp;{$val['c_name']}</option>
+					{/foreach}
+
+				{/foreach}
+			</select>
+		</div>
+		<div  class="form-control">
+			<input type="hidden" name="id" value="{$cate['id']}">
+			<input type="submit" value="更新">
+		</div>
+	</form>
+</div>
+</body>
+</html>

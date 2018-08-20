@@ -1,0 +1,78 @@
+{include file="public/header"}
+
+	<style type="text/css">
+		*{
+			margin: 0px;
+			padding:0px;
+		}
+		#iii{
+			width: 300px;
+			height: 200px;
+		}
+		.form-control-g{
+			vertical-align: top;
+		}
+		.form-control{
+			margin-bottom:50px;
+		}
+		img{
+			width: 300px;
+			height: 200px;
+
+		}
+	</style>
+<body>
+<div class="view">
+	<form action="do_edit"  enctype="multipart/form-data" method="post">
+		<div class="form-control">
+			<label>商品名称：</label>
+			<input type="text" name="g_name" value="{$good['g_name']}">
+		</div>
+		<div class="form-control">
+			<label>商品价格：</label>
+			<input type="text" name="g_price"  value="{$good['g_price']}">
+		</div>
+		<div class="form-control">
+			<label>商品描述：{$good['g_desc']}</label>
+		<div class="form-control-g">
+			<label>输入新的商品描述：</label>
+			<textarea name="g_desc" style="width: 100%" id="content"></textarea>
+		</div class="form-control">
+		
+		<div class="form-control">
+			<label>请选择商品分类：</label>
+			<select name="category_id">
+				<option value="">请选择分类</option>
+				{foreach $cate_list as $good1}
+					<option {if $good.category_id == $good1.id}selected{/if} value="{$good1['id']}">{$good1['c_name']}</option>
+					{foreach $good1['child_menu'] as $val}
+						<option {if $good.category_id == $val.id}selected{/if}   value="{$val['id']}">&nbsp;&nbsp;&nbsp;&nbsp;{$val['c_name']}</option>
+					{/foreach}
+				{/foreach}
+			</select>
+		</div>
+		<div class="form-control">
+			<label>商品图片：</label>
+			<input type="file" name="picture" onchange="change(this)">
+			<img src="__PUBLIC__/uploads/{$good['g_picurl']}" id="ig">
+		</div>
+			
+			<input type="hidden" name="id" value="{$good['id']}">
+			<input type="submit" value="提交">
+	
+	</form>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+	function change(imgFile){
+
+	var path = URL.createObjectURL(imgFile.files[0]);
+	var imgg = document.getElementById('ig');
+	imgg.setAttribute("src", path);
+	
+ }
+</script>
+<script type="text/javascript">
+	var um = UM.getEditor('content');
+</script>

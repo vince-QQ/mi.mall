@@ -1,0 +1,164 @@
+{include file="public/header"}
+<script type="text/javascript" src="https://cdn.bootcss.com/vue/2.5.17-beta.0/vue.min.js"></script>
+	<style type="text/css">
+		*{
+			margin: 0px;
+			padding:0px;
+		}
+		#iii{
+			width: 300px;
+			height: 200px;
+		}
+		.form-control-g{
+			vertical-align: top;
+		}
+		.form-control{
+			margin-bottom:50px;
+		}
+		#spec_option{
+			list-style: none;
+			width: 300px;
+			height: 40px;
+			line-height: 40px;
+			font-size: 28px;
+			border: 1px solid orange;
+			text-align: center;
+			margin-right: 100px;
+
+		}
+		.option-box{
+			width: 100%;
+			display: flex;
+		}
+		.show_text{
+			text-align: center;
+			font-size: 20px;
+			margin:40px 0px;
+		}
+		.show_text input{
+			border:none;
+			outline: none;
+		}
+		.cur{
+		background: orange;
+		color: white;
+		
+		
+	}
+	</style>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>	
+<body>
+<div class="view">
+	<form action="do_add"  enctype="multipart/form-data" method="post">
+		<div class="form-control">
+			<label>商品名称：</label>
+			<input type="text" name="g_name">
+		</div>
+		<div class="form-control">
+			<label>商品价格：</label>
+			<input type="text" name="g_price">
+		</div>
+		<div class="form-control-g">
+			<label>商品描述：</label>
+			 <textarea name="g_desc" style="width: 100%" id="content"></textarea>
+		</div class="form-control">
+		
+		<div class="form-control">
+			<label>请选择商品分类：</label>
+			<select name="category_id">
+				<option value="">请选择分类</option>
+				{foreach $cate_list as $good}
+					<option value="{$good['id']}">{$good['c_name']}</option>
+					{foreach $good['child_menu'] as $val}
+						<option value="{$val['id']}">&nbsp;&nbsp;&nbsp;&nbsp;{$val['c_name']}</option>
+					{/foreach}
+
+				{/foreach}
+			</select>
+		</div>
+			<div>
+				<div v-for="(spec,skey) in spec_list">		
+		 		<h3>{{spec.spec_name}}</h3>
+		 		<ul class="option-box">		 			
+
+
+						<li id="spec_option" v-for="(option,okey) in spec_list_option[spec.id]" @click="add_spec(skey,okey)" :class="{cur:cur_box[skey] == okey}">
+						{{option.attr_name}}</li>
+		 		</ul>
+		 		</div>
+			<div class="show_text">
+				<strong>{{'您已选择：'+attr_type}}{{attr_color}}&nbsp;&nbsp;&nbsp;&nbsp;      </strong>
+				<label>库存：</label><input type="text" name="" v-model="kuchun">
+				<label>价格：</label><input type="text" name="" v-model="price">
+
+			</div>
+
+		</div>
+		<div class="form-control">
+			<label>商品图片：</label>
+			<input type="file" multiple="multiple" name="picture" onchange="change(this)">
+			<!-- 动态添加创建多个节点以存放图片 -->
+			<div id="sss"></div>
+		</div>
+			<input type="submit" value="提交">
+	</form>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+	function change(imgFile){
+	var div = document.getElementById('sss');
+   	// var im = document.getElementById('iii');
+   	//使用这个方法来临时创建一个文件的链接，参数是一个file或者blob
+   	var childs = div.childNodes; 
+		for(var i = childs.length-1;i>=0; i--) { 
+		  div.removeChild(childs[i]); 
+		}
+   	for(var i=0;i<imgFile.files.length;i++){
+   		let imgg = document.createElement("img");
+   		var path = URL.createObjectURL(imgFile.files[i]);
+    //将链接赋值给上面的图片src路径
+    	imgg.setAttribute("src", path);
+   		imgg.style="width:300px;height:200px; padding:10px 10px;";
+   		div.appendChild(imgg);
+   	}
+ }
+</script>
+<script type="text/javascript">
+	var um = UM.getEditor('content');
+</script>
+<script type="text/javascript">
+	new Vue({
+
+		el:'.view',
+		data:{
+			spec_list:JSON.parse('{$spec_list}'),
+			spec_list_option : JSON.parse('{$spec_list_option}'),
+			price:0,
+			kuchun:0,
+			cur_box:[],
+			show_box:{},
+			attr_type:'',
+			attr_color:''
+
+		},
+		methods:{
+			add_spec(skey,okey){
+				this.$set(this.cur_box,skey,okey)
+
+				// this.cur_box[skey]=okey;
+
+					this.$set(this.show_box,'first',this.spec_list_option[1][this.cur_box[0]]);
+					this.$set(this.show_box,'second',this.spec_list_option[2][this.cur_box[1]]);
+					this.attr_type = this.show_box.first.attr_name;
+					this.attr_color = this.show_box.second.attr_name;
+					// this.show_box.push({
+					// 	first:this.spec_list_option[1][this.cur_box[0]],
+					// 	second:this.spec_list_option[2][this.cur_box[1]]
+					// });	
+			}
+		}
+
+	})
+
+</script>
